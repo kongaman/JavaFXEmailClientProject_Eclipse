@@ -1,15 +1,16 @@
 package com.ck;
 
 import com.ck.model.EmailAccount;
+import com.ck.model.EmailTreeItem;
 
 import javafx.scene.control.TreeItem;
 
 public class EmailManager {
 
     //Folder handling:
-    private TreeItem<String> foldersRoot = new TreeItem<String>("");
+    private EmailTreeItem<String> foldersRoot = new EmailTreeItem<String>("");
 
-    public TreeItem<String> getFoldersRoot(){
+    public EmailTreeItem<String> getFoldersRoot(){
         return foldersRoot;
     }
 
