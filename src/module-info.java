@@ -9,4 +9,5 @@ module JavaFxEmailClient {
     opens com.ck;
     opens com.ck.view;
     opens com.ck.controller;
+    opens com.ck.model;
 }
