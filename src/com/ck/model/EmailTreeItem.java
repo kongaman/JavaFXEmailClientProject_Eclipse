@@ -13,6 +13,7 @@ public class EmailTreeItem<String> extends TreeItem<String> {
 	
 	private String name;
 	private ObservableList<EmailMessage> emailMessages;
+	private int unreadMessagesCount;
 
 	public EmailTreeItem(String name) {
 		super(name);
@@ -26,7 +27,23 @@ public class EmailTreeItem<String> extends TreeItem<String> {
 				message.getRecipients(MimeMessage.RecipientType.TO)[0].toString(), message.getSize(),
 				message.getSentDate(), isMessageRead, message);
 		emailMessages.add(emailMessage);
+		if(!isMessageRead) {
+			incrementMessageCount();
+		}
 		System.out.println("added to " + name + " " + message.getSubject());
+	}
+	
+	public void incrementMessageCount() {
+		unreadMessagesCount++;
+		updateName();
+	}
+	
+	private void updateName() {
+		if (unreadMessagesCount > 0) {
+			this.setValue((String) (name + "(" + unreadMessagesCount + ")"));
+		} else {
+			this.setValue(name);
+		}
 	}
 
 }
