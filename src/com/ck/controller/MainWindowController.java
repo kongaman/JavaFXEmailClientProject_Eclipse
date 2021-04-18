@@ -1,6 +1,5 @@
 package com.ck.controller;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -16,6 +15,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 import com.ck.EmailManager;
+import com.ck.controller.services.MessageRendererService;
 import com.ck.model.EmailMessage;
 import com.ck.model.EmailTreeItem;
 import com.ck.model.SizeInteger;
@@ -46,6 +46,8 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @FXML
     private WebView emailWebView;
+    
+    private MessageRendererService messageRendererService;
 
     public MainWindowController(EmailManager emailManager, ViewFactory viewFactory, String fxmlName) {
         super(emailManager, viewFactory, fxmlName);
@@ -66,9 +68,25 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpEmailsTableView();
         setUpFolderSelection();
         setUpBoldRows();
+        setUpMessageRendererService();
+        setUpMessageSelection();
     }
 
-    private void setUpBoldRows() {
+    private void setUpMessageSelection() {
+    	emailsTableView.setOnMouseClicked(event -> {
+    		EmailMessage emailMessage = emailsTableView.getSelectionModel().getSelectedItem();
+    		if( emailMessage != null) {
+    			messageRendererService.setEmailMessage(emailMessage);
+    			messageRendererService.restart();
+    		}
+    	});
+	}
+
+	private void setUpMessageRendererService() {
+    	messageRendererService = new MessageRendererService(emailWebView.getEngine());
+	}
+
+	private void setUpBoldRows() {
     	emailsTableView.setRowFactory(new Callback<TableView<EmailMessage>, TableRow<EmailMessage>>() {
 			@Override
 			public TableRow<EmailMessage> call(TableView<EmailMessage> arg0) {
@@ -87,7 +105,7 @@ public class MainWindowController extends BaseController implements Initializabl
 	}
 
 	private void setUpFolderSelection() {
-    	emailsTreeView.setOnMouseClicked(EventHandler -> {
+    	emailsTreeView.setOnMouseClicked(event -> {
     		EmailTreeItem<String> item = (EmailTreeItem<String>) emailsTreeView.getSelectionModel().getSelectedItem();
     		if(item != null) {
     			emailsTableView.setItems(item.getEmailMessages());
@@ -101,7 +119,6 @@ public class MainWindowController extends BaseController implements Initializabl
     	recipientCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, String>("recipient"));
     	sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, SizeInteger>("size"));
     	dateCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, Date>("date"));
-    	
 	}
 
 	private void setUpEmailsTreeView() {

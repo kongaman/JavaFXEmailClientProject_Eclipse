@@ -11,9 +11,10 @@ import com.ck.model.EmailMessage;
 
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.event.EventHandler;
 import javafx.scene.web.WebEngine;
 
-public class MessageRendererService extends Service<EmailMessage>{
+public class MessageRendererService extends Service {
 	
 	private EmailMessage emailMessage;
 	private WebEngine webEngine;
@@ -24,19 +25,29 @@ public class MessageRendererService extends Service<EmailMessage>{
 	public MessageRendererService(WebEngine webEngine) {
 		this.webEngine = webEngine;
 		this.stringBuffer = new StringBuffer();
+		this.setOnSucceeded(event -> {
+			displayMessage();
+		});
 	}
 
 	public void setEmailMessage(EmailMessage emailMessage) {
 		this.emailMessage = emailMessage;
 	}
 
-
+	private void displayMessage() {
+		webEngine.loadContent(stringBuffer.toString());
+	}
 
 	@Override
-	protected Task<EmailMessage> createTask() {
-		return new Task<EmailMessage>() {
+	protected Task createTask() {
+		return new Task() {
 			@Override
-			protected EmailMessage call() throws Exception {
+			protected Object call() throws Exception {
+				try {
+					loadMessage();
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 				return null;
 			}
 		};
