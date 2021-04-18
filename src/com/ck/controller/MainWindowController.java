@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 import com.ck.EmailManager;
 import com.ck.model.EmailMessage;
 import com.ck.model.EmailTreeItem;
+import com.ck.model.SizeInteger;
 import com.ck.view.ViewFactory;
 
 public class MainWindowController extends BaseController implements Initializable {
@@ -38,7 +39,7 @@ public class MainWindowController extends BaseController implements Initializabl
     private TableColumn<EmailMessage, String> recipientCol;
 
     @FXML
-    private TableColumn<EmailMessage, Integer> sizeCol;
+    private TableColumn<EmailMessage, SizeInteger> sizeCol;
 
     @FXML
     private TableColumn<EmailMessage, Date> dateCol;
@@ -98,7 +99,7 @@ public class MainWindowController extends BaseController implements Initializabl
     	senderCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, String>("sender"));
     	subjectCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, String>("subject"));
     	recipientCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, String>("recipient"));
-    	sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, Integer>("size"));
+    	sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, SizeInteger>("size"));
     	dateCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, Date>("date"));
     	
 	}
