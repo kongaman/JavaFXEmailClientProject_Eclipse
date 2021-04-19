@@ -10,8 +10,6 @@ import com.ck.controller.services.FolderUpdaterService;
 import com.ck.model.EmailAccount;
 import com.ck.model.EmailTreeItem;
 
-import javafx.scene.control.TreeItem;
-
 public class EmailManager {
 	
 	private FolderUpdaterService folderUpdaterService;

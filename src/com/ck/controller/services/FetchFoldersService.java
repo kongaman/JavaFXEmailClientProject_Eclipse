@@ -3,6 +3,7 @@ package com.ck.controller.services;
 import java.util.List;
 
 import javax.mail.Folder;
+import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Store;
 import javax.mail.event.MessageCountEvent;
@@ -59,12 +60,19 @@ public class FetchFoldersService extends Service<Void> {
 	private void addMessageListenertoFolder(Folder folder, EmailTreeItem<String> emailTreeItem) {
 		folder.addMessageCountListener(new MessageCountListener() {
 			@Override
-			public void messagesRemoved(MessageCountEvent e) {
-				System.out.println("message removed event " + e);
+			public void messagesAdded(MessageCountEvent e) {
+				for (int i = 0; i < e.getMessages().length; i++) {
+					try {
+						Message message = folder.getMessage(folder.getMessageCount() - i);
+						emailTreeItem.addEmailToTop(message);
+					} catch (MessagingException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 			@Override
-			public void messagesAdded(MessageCountEvent e) {
-				System.out.println("message added event " + e);
+			public void messagesRemoved(MessageCountEvent e) {
+				
 			}
 		});
 	}
