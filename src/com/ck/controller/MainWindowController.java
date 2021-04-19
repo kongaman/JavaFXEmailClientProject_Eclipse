@@ -1,7 +1,10 @@
 package com.ck.controller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
@@ -25,29 +28,24 @@ public class MainWindowController extends BaseController implements Initializabl
 
     @FXML
     private TreeView<String> emailsTreeView;
-
     @FXML
     private TableView<EmailMessage> emailsTableView;
-    
     @FXML
     private TableColumn<EmailMessage, String> senderCol;
-
     @FXML
     private TableColumn<EmailMessage, String> subjectCol;
-
     @FXML
     private TableColumn<EmailMessage, String> recipientCol;
-
     @FXML
     private TableColumn<EmailMessage, SizeInteger> sizeCol;
-
     @FXML
     private TableColumn<EmailMessage, Date> dateCol;
-
     @FXML
     private WebView emailWebView;
     
     private MessageRendererService messageRendererService;
+    private MenuItem markUnreadMenuItem = new MenuItem("mark unread");
+    private MenuItem deleteMessageMenuItem = new MenuItem("delete message");
 
     public MainWindowController(EmailManager emailManager, ViewFactory viewFactory, String fxmlName) {
         super(emailManager, viewFactory, fxmlName);
@@ -70,9 +68,18 @@ public class MainWindowController extends BaseController implements Initializabl
         setUpBoldRows();
         setUpMessageRendererService();
         setUpMessageSelection();
+        setUpContextMenus();
     }
 
-    private void setUpFolderSelection() {
+    private void setUpContextMenus() {
+    	markUnreadMenuItem.setOnAction(event -> emailManager.setUnRead());
+    	deleteMessageMenuItem.setOnAction(event -> {
+    		emailManager.deleteSelectedMessage();
+    		emailWebView.getEngine().loadContent("");
+    	});
+	}
+
+	private void setUpFolderSelection() {
     	emailsTreeView.setOnMouseClicked(event -> {
     		EmailTreeItem<String> item = (EmailTreeItem<String>) emailsTreeView.getSelectionModel().getSelectedItem();
     		if(item != null) {
@@ -124,6 +131,7 @@ public class MainWindowController extends BaseController implements Initializabl
     	recipientCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, String>("recipient"));
     	sizeCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, SizeInteger>("size"));
     	dateCol.setCellValueFactory(new PropertyValueFactory<EmailMessage, Date>("date"));
+    	emailsTableView.setContextMenu(new ContextMenu(markUnreadMenuItem, deleteMessageMenuItem));
 	}
 
 	private void setUpEmailsTreeView() {
