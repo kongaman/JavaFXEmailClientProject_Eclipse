@@ -69,10 +69,11 @@ public class FetchFoldersService extends Service<Void> {
 						e1.printStackTrace();
 					}
 				}
+				System.out.println("message added event " + e);
 			}
 			@Override
 			public void messagesRemoved(MessageCountEvent e) {
-				
+				System.out.println("message removed event " + e);
 			}
 		});
 	}
