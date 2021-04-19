@@ -1,5 +1,7 @@
 package com.ck.controller.services;
 
+import java.util.List;
+
 import javax.mail.Folder;
 import javax.mail.MessagingException;
 import javax.mail.Store;
@@ -15,10 +17,12 @@ public class FetchFoldersService extends Service<Void> {
 	
 	private Store store;
 	private EmailTreeItem<String> foldersRoot;
+	private List<Folder> foldersList;
 	
-	public FetchFoldersService(Store store, EmailTreeItem<String> foldersRoot) {
+	public FetchFoldersService(Store store, EmailTreeItem<String> foldersRoot, List<Folder> foldersList) {
 		this.store = store;
 		this.foldersRoot = foldersRoot;
+		this.foldersList = foldersList;
 	}
 
 	@Override
@@ -39,6 +43,7 @@ public class FetchFoldersService extends Service<Void> {
 
 	private void handleFolders(Folder[] folders, EmailTreeItem<String> foldersRoot) throws MessagingException {
 		for(Folder folder : folders) {
+			foldersList.add(folder);
 			EmailTreeItem<String> emailTreeItem = new EmailTreeItem<String>(folder.getName());
 			foldersRoot.getChildren().add(emailTreeItem);
 			foldersRoot.setExpanded(true);
@@ -49,17 +54,14 @@ public class FetchFoldersService extends Service<Void> {
 				handleFolders(subfolders, emailTreeItem);
 			}
 		}
-		
 	}
 
 	private void addMessageListenertoFolder(Folder folder, EmailTreeItem<String> emailTreeItem) {
 		folder.addMessageCountListener(new MessageCountListener() {
-			
 			@Override
 			public void messagesRemoved(MessageCountEvent e) {
 				System.out.println("message removed event " + e);
 			}
-			
 			@Override
 			public void messagesAdded(MessageCountEvent e) {
 				System.out.println("message added event " + e);
@@ -72,7 +74,6 @@ public class FetchFoldersService extends Service<Void> {
 			@Override
 			protected Task createTask() {
 				return new Task() {
-
 					@Override
 					protected Object call() throws Exception {
 						if(folder.getType() != Folder.HOLDS_FOLDERS) {
@@ -89,8 +90,5 @@ public class FetchFoldersService extends Service<Void> {
 			
 		};
 		fetchMessagesService.start();
-		
 	}
-
-	
 }
