@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.ck.EmailManager;
 import com.ck.controller.BaseController;
+import com.ck.controller.ComposeMessageController;
 import com.ck.controller.LoginWindowController;
 import com.ck.controller.MainWindowController;
 import com.ck.controller.OptionsWindowController;
@@ -65,7 +66,13 @@ public class ViewFactory {
 
     public void showOptionsWindow(){
         System.out.println("options window called");
-        BaseController controller = new OptionsWindowController(emailManager, this, "OptionsWindow.fxml");
+        BaseController controller = new OptionsWindowController(emailManager, this, "ComposeMessageWindow.fxml");
+        initializeStage(controller);
+    }
+    
+    public void showComposeMessageWindow(){
+        System.out.println("compose message window called");
+        BaseController controller = new ComposeMessageController(emailManager, this, "ComposeMessageWindow.fxml");
         initializeStage(controller);
     }
 

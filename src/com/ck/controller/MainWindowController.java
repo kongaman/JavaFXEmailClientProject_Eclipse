@@ -1,6 +1,5 @@
 package com.ck.controller;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ContextMenu;
@@ -58,6 +57,11 @@ public class MainWindowController extends BaseController implements Initializabl
     @FXML
     void addAccountAction() {
         viewFactory.showLoginWindow();
+    }
+    
+    @FXML
+    void composeMessageAction() {
+    	viewFactory.showComposeMessageWindow();
     }
     
     @Override
