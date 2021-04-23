@@ -76,6 +76,6 @@ public class LoginWindowController extends BaseController implements Initializab
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         emailAddressFied.setText("ckriztian205@gmail.com");
-        passwordField.setText("mNkhAXunjJZG1dDdmtiS+");
+        passwordField.setText("ywhOxRzkUnoP");
     }
 }

@@ -46,4 +46,11 @@ public class EmailAccount {
         properties.put("mail.smtps.auth", "true");
         properties.put("outgoingHost", "smtp.gmail.com");
     }
+
+	@Override
+	public String toString() {
+		return address;
+	}
+    
+    
 }
