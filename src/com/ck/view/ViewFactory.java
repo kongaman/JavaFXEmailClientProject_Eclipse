@@ -13,7 +13,7 @@ import com.ck.controller.BaseController;
 import com.ck.controller.LoginWindowController;
 import com.ck.controller.MainWindowController;
 import com.ck.controller.OptionsWindowController;
-import com.ck.controller.composeMessageController;
+import com.ck.controller.ComposeMessageController;
 
 public class ViewFactory {
 
@@ -72,7 +72,7 @@ public class ViewFactory {
     
     public void showComposeMessageWindow(){
         System.out.println("compose message window called");
-        BaseController controller = new composeMessageController(emailManager, this, "ComposeMessageWindow.fxml");
+        BaseController controller = new ComposeMessageController(emailManager, this, "ComposeMessageWindow.fxml");
         initializeStage(controller);
     }
 
