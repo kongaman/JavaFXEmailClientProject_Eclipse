@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 
-public class ComposeMessageController extends BaseController {
+public class composeMessageController extends BaseController {
 	
 	@FXML
     private TextField recipientTextField;
@@ -25,7 +25,7 @@ public class ComposeMessageController extends BaseController {
 
     }
 
-	public ComposeMessageController(EmailManager emailManager, ViewFactory viewFactory, String fxmlName) {
+	public composeMessageController(EmailManager emailManager, ViewFactory viewFactory, String fxmlName) {
 		super(emailManager, viewFactory, fxmlName);
 		// TODO Auto-generated constructor stub
 	}
