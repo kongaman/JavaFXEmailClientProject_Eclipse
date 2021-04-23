@@ -5,6 +5,7 @@ import com.ck.view.ViewFactory;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
@@ -19,10 +20,12 @@ public class ComposeMessageController extends BaseController {
     private HTMLEditor htmlEditor;
     @FXML
     private Label errorLabel;
+    @FXML
+    private ChoiceBox<?> emailAccountChoice;
 
     @FXML
-    void sendButtonAction(ActionEvent event) {
-
+    void sendButtonAction() {
+    	System.out.println(htmlEditor.getHtmlText());
     }
 
 	public ComposeMessageController(EmailManager emailManager, ViewFactory viewFactory, String fxmlName) {
