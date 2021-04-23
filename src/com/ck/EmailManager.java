@@ -12,11 +12,15 @@ import com.ck.model.EmailAccount;
 import com.ck.model.EmailMessage;
 import com.ck.model.EmailTreeItem;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 public class EmailManager {
 	
 	private EmailMessage selectedMessage;
 	private EmailTreeItem<String> selectedFolder;
 	private FolderUpdaterService folderUpdaterService;
+	private ObservableList<EmailAccount> emailAccounts = FXCollections.observableArrayList();
     //Folder handling:
     private EmailTreeItem<String> foldersRoot = new EmailTreeItem<String>("");
     private List<Folder> foldersList = new ArrayList<>();
@@ -27,6 +31,7 @@ public class EmailManager {
 	}
 
 	public void addEmailAccount(EmailAccount emailAccount){
+		emailAccounts.add(emailAccount);
     	EmailTreeItem<String> treeItem = new EmailTreeItem<String>(emailAccount.getAddress());
         FetchFoldersService fetchFoldersService = new FetchFoldersService(emailAccount.getStore(), treeItem, foldersList);
         fetchFoldersService.start();    
@@ -85,5 +90,10 @@ public class EmailManager {
 	public void setSelectedFolder(EmailTreeItem<String> selectedFolder) {
 		this.selectedFolder = selectedFolder;
 	}
+
+	public ObservableList<EmailAccount> getEmailAccounts() {
+		return emailAccounts;
+	}
+	
 
 }
