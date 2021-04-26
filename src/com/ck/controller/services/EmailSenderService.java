@@ -53,6 +53,7 @@ public class EmailSenderService extends Service<EmailSendingResult> {
 							emailAccount.getPassword());
 					transport.sendMessage(mimeMessage, mimeMessage.getAllRecipients());
 					transport.close();
+					return EmailSendingResult.SUCCESS;
 				} catch (MessagingException e) {
 					e.printStackTrace();
 					return EmailSendingResult.FAILED_BY_PROVIDER;
@@ -60,8 +61,6 @@ public class EmailSenderService extends Service<EmailSendingResult> {
 					e.printStackTrace();
 					return EmailSendingResult.FAILED_BY_UNEXPECTED_ERROR;
 				}
-				
-				return null;
 			}
 		};
 	}
