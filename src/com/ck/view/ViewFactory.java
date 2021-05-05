@@ -14,6 +14,7 @@ import com.ck.controller.LoginWindowController;
 import com.ck.controller.MainWindowController;
 import com.ck.controller.OptionsWindowController;
 import com.ck.controller.ComposeMessageController;
+import com.ck.controller.EmailDetailsController;
 
 public class ViewFactory {
 
@@ -74,6 +75,11 @@ public class ViewFactory {
         System.out.println("compose message window called");
         BaseController controller = new ComposeMessageController(emailManager, this, "ComposeMessagesWindow.fxml");
         initializeStage(controller);
+    }
+    
+    public void showEmailDetailsWindow() {
+    	BaseController controller = new EmailDetailsController(emailManager, this, "EmailDetailsWindow.fxml");
+    	initializeStage(controller);
     }
 
     private void initializeStage(BaseController baseController){
