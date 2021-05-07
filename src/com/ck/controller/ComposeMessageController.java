@@ -49,7 +49,6 @@ public class ComposeMessageController extends BaseController implements Initiali
     		showAttachment(selectedFile);
     	}
     }
-
 	@FXML
     void sendButtonAction() {
     	EmailSenderService emailSenderService = new EmailSenderService(emailAccountChoice.getSelectionModel().getSelectedItem(),

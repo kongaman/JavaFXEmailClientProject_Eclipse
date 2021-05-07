@@ -78,7 +78,9 @@ public class MessageRendererService extends Service {
 			} else if (!isTextPlain(bodyPartContentType)) {
 				// here we get the attachments
 				MimeBodyPart mimeBodyPart = (MimeBodyPart) bodyPart;
-				emailMessage.addAttachment(mimeBodyPart);
+				if(!emailMessage.getAttachmentList().contains(mimeBodyPart)) {
+					emailMessage.addAttachment(mimeBodyPart);
+				}
 				
 			}
 		}

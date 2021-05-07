@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
 import javafx.beans.property.SimpleObjectProperty;
@@ -36,12 +35,6 @@ public class EmailMessage {
 	public void addAttachment(MimeBodyPart mimeBodyPart) {
 		hasAttachments = true;
 		attachmentList.add(mimeBodyPart);
-		try {
-			System.out.println("added attachment: " + mimeBodyPart.getFileName());
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	} 
 	
 	public String getSubject() {
