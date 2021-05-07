@@ -1,5 +1,8 @@
 package com.ck.controller;
 
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -89,6 +92,7 @@ public class EmailDetailsController extends BaseController implements Initializa
 			this.setOnAction(event -> downloadAttachment());
 		}
 		
+		@SuppressWarnings("unchecked")
 		private void downloadAttachment() {
 			colorBlue();
 			Service service = new Service() {
@@ -104,7 +108,20 @@ public class EmailDetailsController extends BaseController implements Initializa
 				}
 			};
 			service.restart();
-			service.setOnSucceeded(event -> colorGreen());
+			service.setOnSucceeded(event -> {
+				colorGreen();
+				this.setOnAction(event2 -> {
+					File file = new File(downloadedFilePath);
+					Desktop desktop = Desktop.getDesktop();
+					if(file.exists()) {
+						try {
+							desktop.edit(file);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			});
 		}
 		
 		private void colorBlue() {

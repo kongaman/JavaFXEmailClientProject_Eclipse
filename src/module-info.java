@@ -6,6 +6,7 @@ module JavaFxEmailClient {
     requires activation;
     requires java.mail;
 	requires javafx.base;
+	requires java.desktop;
 
     opens com.ck;
     opens com.ck.view;
