@@ -9,8 +9,8 @@
 <AnchorPane prefHeight="729.0" prefWidth="557.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
    <children>
       <Label layoutX="23.0" layoutY="27.0" text="Subject:" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="464.0" AnchorPane.topAnchor="27.0" />
-      <Label fx:id="attachmentLabel" layoutX="23.0" layoutY="82.0" text="Attachments:" AnchorPane.bottomAnchor="630.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="464.0" />
-      <Label layoutX="23.0" layoutY="56.0" text="Sender" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="464.0" />
+      <Label fx:id="attachmentLabel" layoutX="23.0" layoutY="82.0" text="Attachments:" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="464.0" AnchorPane.topAnchor="82.0" />
+      <Label layoutX="23.0" layoutY="56.0" text="Sender" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="464.0" AnchorPane.topAnchor="50.0" />
       <WebView fx:id="webView" layoutX="23.0" layoutY="111.0" prefHeight="612.0" prefWidth="527.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="7.0" />
       <Label fx:id="subjectLabel" layoutX="101.0" layoutY="27.0" prefHeight="17.0" prefWidth="437.0" />
       <Label fx:id="senderLabel" layoutX="101.0" layoutY="56.0" prefHeight="17.0" prefWidth="437.0" />

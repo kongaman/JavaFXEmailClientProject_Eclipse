@@ -76,4 +76,12 @@ public class EmailMessage {
 		return message;
 	}
 
+	public boolean hasAttachments() {
+		return hasAttachments;
+	}
+
+	public List<MimeBodyPart> getAttachmentList() {
+		return attachmentList;
+	}
+
 }
