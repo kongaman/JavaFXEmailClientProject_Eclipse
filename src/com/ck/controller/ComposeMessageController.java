@@ -1,23 +1,18 @@
 package com.ck.controller;
 
-import java.awt.Desktop;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeBodyPart;
 
 import com.ck.EmailManager;
 import com.ck.controller.services.EmailSenderService;
 import com.ck.model.EmailAccount;
 import com.ck.view.ViewFactory;
 
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
