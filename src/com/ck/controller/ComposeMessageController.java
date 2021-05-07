@@ -55,18 +55,6 @@ public class ComposeMessageController extends BaseController implements Initiali
     	}
     }
 
-    private void showAttachment(File selectedFile) {
-    	AttachmentButton button;
-		try {
-			button = new AttachmentButton(selectedFile);
-			hBoxAttachments.getChildren().add(button);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-		}
-    	
-		
-	}
-
 	@FXML
     void sendButtonAction() {
     	EmailSenderService emailSenderService = new EmailSenderService(emailAccountChoice.getSelectionModel().getSelectedItem(),
@@ -101,18 +89,28 @@ public class ComposeMessageController extends BaseController implements Initiali
 		emailAccountChoice.setValue(emailManager.getEmailAccounts().get(0));
 	}
 	
-	private class AttachmentButton extends Button  {
+	private void showAttachment(File selectedFile) {
+		DeleteAttachmentButton button;
+		try {
+			button = new DeleteAttachmentButton(selectedFile);
+			hBoxAttachments.getChildren().add(button);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private class DeleteAttachmentButton extends Button  {
 		
-		private File attachment;
+		private File attachedFile;
 
-		public AttachmentButton(File attachedFile) throws MessagingException {
-			this.attachment = attachedFile;
+		public DeleteAttachmentButton(File attachedFile) throws MessagingException {
+			this.attachedFile = attachedFile;
 			this.setText("Delete: " + attachedFile.getName());
 			
-			this.setOnAction(event -> deleteAttachment(attachedFile));
+			this.setOnAction(event -> deleteAttachment());
 		}
 		
-		private void deleteAttachment(File attachedFile) {
+		private void deleteAttachment() {
 			attachments.remove(attachedFile);
 			hBoxAttachments.getChildren().remove(this);
 		}
