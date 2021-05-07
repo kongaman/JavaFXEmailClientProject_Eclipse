@@ -1,5 +1,12 @@
 package com.ck.controller.services;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -21,12 +28,14 @@ public class EmailSenderService extends Service<EmailSendingResult> {
 	private String subject;
 	private String recipient;
 	private String content;
+	private List<File> attachments;
 
-	public EmailSenderService(EmailAccount emailAccount, String subject, String recipient, String content) {
+	public EmailSenderService(EmailAccount emailAccount, String subject, String recipient, String content, List<File> attachments) {
 		this.emailAccount = emailAccount;
 		this.subject = subject;
 		this.recipient = recipient;
 		this.content = content;
+		this.attachments = attachments;
 	}
 
 	@Override
@@ -46,6 +55,16 @@ public class EmailSenderService extends Service<EmailSendingResult> {
 					messageBodyPart.setContent(content, "text/html");
 					multipart.addBodyPart(messageBodyPart);
 					mimeMessage.setContent(multipart);
+					// adding attachments
+					if(attachments.size() >0) {
+						for(File file : attachments) {
+							MimeBodyPart mimeBodyPart = new MimeBodyPart();
+							DataSource source = new FileDataSource(file.getAbsolutePath());
+							mimeBodyPart.setDataHandler(new DataHandler(source));
+							mimeBodyPart.setFileName(file.getName());
+							multipart.addBodyPart(mimeBodyPart);
+						}
+					}
 					//sending message
 					Transport transport = emailAccount.getSession().getTransport();
 					transport.connect(emailAccount.getProperties().getProperty("outgoingHost"),
