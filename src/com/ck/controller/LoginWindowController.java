@@ -15,7 +15,7 @@ import com.ck.controller.services.LoginService;
 import com.ck.model.EmailAccount;
 import com.ck.view.ViewFactory;
 
-public class LoginWindowController extends BaseController implements Initializable {
+public class LoginWindowController extends BaseController {
 
     @FXML
     private Label errorLabel;
@@ -71,11 +71,5 @@ public class LoginWindowController extends BaseController implements Initializab
             return false;
         }
         return true;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        emailAddressFied.setText("ckriztian205@gmail.com");
-        passwordField.setText("ywhOxRzkUnoP");
     }
 }
